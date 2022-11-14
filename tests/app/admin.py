@@ -12,7 +12,7 @@ class AnswersInline(NestedTabularInline):
     model = Answers
     can_delete = True
     extra = 1
-ошибка!!
+
 
 class QuestionsInline(NestedStackedInline):
     inlines = [AnswersInline]
