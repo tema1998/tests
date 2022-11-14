@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid p-0">
+    <!-- Опрос -->
+    <section class="resume-section" id="experience">
+        <div class="resume-section-content">
+            <h2 class="mb-5">Авторизация</h2>
+            <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                <div class="flex-grow-1">
+                    <style>
+                        h5{
+                        color:red
+                        }
+                    </style>
+                    {% for message in messages %}
+                    <h5>{{message}}</h5>
+                    {% endfor %}
+                  <form action="" method="POST">
+                    {% csrf_token %}
+
+                    <h4 class="mb-0">ЛОГИН</h4>
+                    <input type="text" name='username' placeholder="Логин" >
+
+                    <h4 class="mb-0">ПАРОЛЬ</h4>
+                    <input type="password" name='pass1' placeholder="Пароль">
+
+                    <br><br>
+                    <button type="submit">Войти</button>
+
+                  <br><br>
+                  <h6> У вас нету аккаунта? <a href="{% url 'signup' %}"> РЕГИСТРАЦИЯ </a> </h6>
+
+                  </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr class="m-0" />
+</div>
+{% endblock %}

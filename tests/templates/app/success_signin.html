@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid p-0">
+
+    <section class="resume-section" id="experience">
+        <div class="resume-section-content">
+<!--            <h2 class="mb-5">Регистрация</h2>-->
+            <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                <div class="flex-grow-1">
+                    <form action ='' method="POST"></form>
+                        {% csrf_token %}
+                        <input type="hidden" name="user_id" value="{{user.id}}">
+                    <h4 class="mb-0">Поздравляем вас, вы вошли как {{username}}!</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr class="m-0" />
+</div>
+{% endblock %}

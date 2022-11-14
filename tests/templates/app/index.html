@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid p-0">
+    <!-- Опрос -->
+    <section class="resume-section" id="experience">
+        <div class="resume-section-content">
+            <h2 class="mb-5">САЙТ-ОПРОСНИК</h2>
+            <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                <div class="flex-grow-1">
+                    {% if username is None %}
+                    <h3 class="mb-0">Добро пожаловать!</h3>
+                    <p>Для того, чтобы начать работу с опросами необходимо <a href="{% url 'signup' %}">зарегестрировать</a>, либо <a href="{% url 'signin' %}">авторизоваться</a>!</p>
+                    {% else %}
+                    <h3 class="mb-0">Начните проходить опросы прямо сейчас!</h3>
+                    <p>Для того, чтобы начать нажмите 'Начать тестирование' либо создайте свой набор тестов, нажав 'Создать набор тестов'</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr class="m-0" />
+</div>
+{% endblock %}
