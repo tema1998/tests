@@ -102,7 +102,7 @@ class Setview(LoginRequiredMixin, View):
 
         if len(new_question_for_user)!=0:
             question_for_user=new_question_for_user[0]
+            answers_for_user=question_for_user.answers_set.all()
         else:
             question_for_user=None
-        print(question_for_user)
-        return render(request, 'app/set.html', {'set':set, 'questions':questions, 'username':username, 'question_for_user':question_for_user })
+        return render(request, 'app/set.html', {'set':set, 'questions':questions, 'username':username, 'question_for_user':question_for_user, 'answers_for_user':answers_for_user })

@@ -5,12 +5,26 @@
     <!-- Опрос -->
     <section class="resume-section" id="experience">
         <div>
+            <form action="" method="POST">
+            {% csrf_token %}
+
             {% if question_for_user %}
+                <input type="hidden" name='question' placeholder="{{question_for_user}}" >
                 <h3>{{question_for_user.name}}</h3> <br>
-                {% for answer in question_for_user.
+                {% for answer in answers_for_user %}
+                <div>
+                <input type="checkbox" name='{{question_for_user}}' value="{{question_for_user}}" id="id_for_a" >
+                <label for="id_for_a"><h5> {{answer}} </h5> </label>
+                </div><br>
+                {% endfor %}
+
+                <input type="submit" value="Ответить">
+
             {% else %}
                 Поздравляем! Вы завершили тестирование!
             {% endif %}
+
+            </form>
         </div>
     </section>
     <hr class="m-0" />
