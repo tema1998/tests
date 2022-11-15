@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid p-0">
+    <!-- Опрос -->
+    <section class="resume-section" id="experience">
+        <div>
+        Поздравляем Вас, <b>{{username}}</b>! Вы успешно прошли тестирование по набору <b>"{{current_set}}"</b>! <br><br>
+        Статистика: <br>
+            Общее количество вопросов: <b>{{amount_of_answers}}</b><br>
+            Количество правильных ответов: <b>{{right_answers}}</b><br>
+            Количество неправильных ответов: <b>{{not_right_answers}}</b><br>
+            Процент правильных ответов: <b>{{persent_right_answers}}%</b><br>
+
+        </div>
+    </section>
+    <hr class="m-0" />
+</div>
+{% endblock %}
