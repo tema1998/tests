@@ -5,8 +5,8 @@
     <!-- Опрос -->
     <section class="resume-section" id="experience">
         <div class="resume-section-content">
-            {% for set in sets %}
-            <a href="{{set.get_absolute_url}}"> <h3 class="mb-5">{{set.name}}</h3> </a>
+            {% for set1 in sets %}
+            <a href="{{set1.get_absolute_url}}"> <h3 class="mb-5">{{set1.name}}</h3> </a>
             {% endfor %}
         </div>
     </section>

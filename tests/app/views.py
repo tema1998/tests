@@ -94,7 +94,9 @@ class Setview(LoginRequiredMixin, View):
         user_result = Result.objects.filter(user=user, question__sets=current_set, checked=True)
         answered_questions = [question.question.id for question in user_result]
 
+
         new_question_for_user=[]
+        answers_for_user=None
         #Составляем список вопросов, которые USER - не проходил!
         for question in questions:
             if question.id not in answered_questions:
@@ -104,5 +106,43 @@ class Setview(LoginRequiredMixin, View):
             question_for_user=new_question_for_user[0]
             answers_for_user=question_for_user.answers_set.all()
         else:
-            question_for_user=None
-        return render(request, 'app/set.html', {'set':set, 'questions':questions, 'username':username, 'question_for_user':question_for_user, 'answers_for_user':answers_for_user })
+            return redirect('success', id)
+        return render(request, 'app/set.html', {'questions':questions, 'username':username, 'question_for_user':question_for_user, 'answers_for_user':answers_for_user })
+
+    def post(self, request, id):
+        user = User.objects.get(username=request.user.username)
+        question = Questions.objects.get(id = request.POST.get('question_id'))
+        answers_id = request.POST.getlist('answer_id')
+        right_answers_id = [str(i.id) for i in question.answers_set.filter(IsTrue=True)]
+
+        if all([True if answer in right_answers_id else False for answer in answers_id ]) and answers_id:
+            mark = True
+        elif not answers_id:
+            messages.info(request, 'Пожалуйста выберите как минимум один ответ!')
+            return redirect('set_id', id)
+        else:
+            mark = False
+
+        result = Result(user = user, question = question, mark = mark, checked = True)
+        result.save()
+        return redirect('set_id',id)
+
+class Successview(LoginRequiredMixin, View):
+    login_url = 'signin'
+    def get(self, request, id):
+        user = User.objects.get(username=request.user.username)
+        username = user.username
+        current_set = Sets.objects.get(id=id)
+        amount_of_questions=current_set.questions_set.count()
+
+        #Проверка на пользователя, который не закончил тестирование этого набора
+        checked_questions = Result.objects.filter(user=user, question__sets=current_set, checked=True).count()
+        if checked_questions!=amount_of_questions:
+            return redirect('set_id', id)
+
+        right_questions = Result.objects.filter(user=user, question__sets=current_set, mark=True).count()
+        not_right_questions = Result.objects.filter(user=user, question__sets=current_set, mark=False).count()
+        persent_right_questions=round((right_questions/amount_of_questions)*100, 1)
+
+
+        return render(request, 'app/success.html', {'username':username, 'current_set':current_set,'amount_of_answers':amount_of_questions, 'right_answers':right_questions, 'not_right_answers':not_right_questions, 'persent_right_answers':persent_right_questions })

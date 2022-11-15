@@ -16,7 +16,7 @@ class Sets(models.Model):
         verbose_name_plural = "Наборы"
 
     def get_absolute_url(self):
-        return reverse('set', kwargs={'id': self.pk})
+        return reverse('set_id', kwargs={'id': self.pk})
 
 
 
@@ -47,3 +47,7 @@ class Result(models.Model):
     question = models.ForeignKey(Questions, on_delete=models.CASCADE)
     mark = models.BooleanField('Оценка', default=False)
     checked = models.BooleanField('Проходил', default=False)
+
+    class Meta:
+        verbose_name = "Результат"
+        verbose_name_plural = "Результаты"

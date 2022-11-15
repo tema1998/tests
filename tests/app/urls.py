@@ -7,6 +7,7 @@ urlpatterns = [
     path('signin', views.Signin.as_view(), name='signin'),
     path('logout', views.Logout.as_view(), name='logout'),
     path('sets', views.Setsview.as_view(), name='sets'),
-    path('sets/<int:id>', views.Setview.as_view(), name='set'),
+    path('sets/<int:id>', views.Setview.as_view(), name='set_id'),
+    path('success/<int:id>', views.Successview.as_view(), name='success'),
     path('success_signin', views.Success_signin.as_view(), name='success_signin'),
 ]
